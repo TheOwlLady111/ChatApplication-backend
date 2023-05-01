@@ -4,5 +4,5 @@ namespace Chat.BLL.Contracts;
 
 public interface IMessageService
 {
-    List<MessageViewModel> GetMessagesAsync();
+    Task<List<MessageViewModel>> GetMessagesAsync();
 }

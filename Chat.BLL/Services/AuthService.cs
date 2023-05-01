@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 using Chat.BLL.Contracts;
 using Chat.BLL.Exceptions;
 using Chat.BLL.ViewModels;
