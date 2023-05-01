@@ -1,6 +1,8 @@
-﻿namespace Chat.BLL.Services;
+﻿using Chat.BLL.Contracts;
 
-public class MessageService
+namespace Chat.BLL.Services;
+
+public class MessageService :  IMessageService
 {
     
 }

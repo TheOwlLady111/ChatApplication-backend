@@ -1,4 +1,5 @@
 using Chat.Api.Extensions;
+using Chat.BLL.Extensions;
 using Chat.DAL.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ var settings = builder.AddAuthSettings();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddAuth(settings);
+builder.Services.AddAutomapper();
+builder.Services.AddServices();
 builder.Services.ConfigureDbContext(configuration);
 builder.Services.AddRepositories();
 builder.Services.AddEndpointsApiExplorer();

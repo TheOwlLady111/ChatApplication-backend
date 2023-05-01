@@ -2,6 +2,7 @@
 using Chat.BLL.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -30,7 +31,7 @@ public class TokenService : ITokenService
         var jwt = new JwtSecurityToken(
             _authSettings.Issuer,
             _authSettings.Audience,
-            claims: claims,
+            claims:claims,
             DateTime.UtcNow,
             expires: DateTime.UtcNow.AddMinutes(_authSettings.TokenLifetime),
             signingCredentials: credentials);
