@@ -1,5 +1,4 @@
 ﻿using Chat.DAL.Configurations;
-using Chat.DAL.Contracts;
 using Chat.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

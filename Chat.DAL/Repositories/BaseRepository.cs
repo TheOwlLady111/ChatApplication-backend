@@ -52,12 +52,12 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
             switch (entityEntry.State)
             {
                 case EntityState.Added:
-                    entity.CreatedAtUtc = DateTime.Now;
+                    entity.CreatedAtUtc = DateTime.UtcNow;
 
                     break;
 
                 case EntityState.Modified:
-                    entity.UpdatedAtUtc = DateTime.Now;
+                    entity.UpdatedAtUtc = DateTime.UtcNow;
 
                     break;
             }
