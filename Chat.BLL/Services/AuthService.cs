@@ -25,6 +25,11 @@ public class AuthService : IAuthService
 
     public async Task<SuccessUserLoginViewModel> LoginAsync(LoginViewModel loginViewModel)
     {
+        if (loginViewModel == null)
+        {
+            throw new ArgumentNullException(nameof(loginViewModel));
+        }
+
         var result = await _signInManager.PasswordSignInAsync(loginViewModel.UserName, loginViewModel.Password, false, false);
 
         if (!result.Succeeded)
@@ -39,6 +44,11 @@ public class AuthService : IAuthService
 
     public async Task<SuccessUserLoginViewModel> RegisterAsync(RegisterViewModel registerViewModel)
     {
+        if (registerViewModel == null)
+        {
+            throw new ArgumentNullException(nameof(registerViewModel));
+        }
+
         if (registerViewModel.ConfirmPassword != registerViewModel.ConfirmPassword)
         {
             throw new RegisterException("Password and confirmPassword are not the same!");
