@@ -1,6 +1,8 @@
-﻿namespace Chat.DAL.Contracts;
+﻿using Chat.DAL.Entities;
 
-public interface IMessageRepository
+namespace Chat.DAL.Contracts;
+
+public interface IMessageRepository : IBaseRepository<Message>
 {
     
 }
