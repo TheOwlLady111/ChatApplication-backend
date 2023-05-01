@@ -1,3 +1,4 @@
+using Chat.BLL.Models;
 using Chat.DAL.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,8 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.Development.json", optional: false, reloadOnChange: true)
     .Build();
+
+builder.Configuration.GetRequiredSection("AuthSettings").Get<AuthSettings>();
 
 // Add services to the container.
 
