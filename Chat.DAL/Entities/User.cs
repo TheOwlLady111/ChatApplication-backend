@@ -1,6 +1,12 @@
-﻿namespace Chat.DAL.Entities;
+﻿using Chat.DAL.Contracts;
+using Microsoft.AspNetCore.Identity;
 
-public class User : IdentityUser
+namespace Chat.DAL.Entities;
+
+public class User : IdentityUser<int>, IBaseEntity
 {
+    public ICollection<Message> Messages { get; set; }
 
+    public DateTime CreatedAtUtc { get; set; }
+    public DateTime? UpdatedAtUtc { get; set; }
 }

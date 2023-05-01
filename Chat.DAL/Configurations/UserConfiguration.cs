@@ -1,6 +1,15 @@
-﻿namespace Chat.DAL.Configurations;
+﻿using Chat.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class UserConfiguration
+namespace Chat.DAL.Configurations;
+
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    
+    public void Configure(EntityTypeBuilder<User> builder)
+    {
+        builder.HasKey(x => x.Id);
+
+        builder.HasMany(x => x.Messages).WithOne().HasForeignKey(x => x.UserId);
+    }
 }
