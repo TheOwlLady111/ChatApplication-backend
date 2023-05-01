@@ -1,6 +1,6 @@
 ﻿namespace Chat.BLL.Exceptions;
 
-public class LoginException
+public class LoginException : Exception
 {
-    
+    public LoginException(string message) : base(message){}
 }
