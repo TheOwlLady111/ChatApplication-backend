@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Chat.BLL.Contracts;
 using Chat.BLL.Exceptions;
 using Chat.BLL.ViewModels;
 using Chat.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
-using Npgsql.TypeMapping;
 
 namespace Chat.BLL.Services;
 
@@ -32,13 +32,42 @@ public class AuthService : IAuthService
             throw new LoginException("Login failure!");
         }
 
-        var token = _tokenService.GenerateToken();
+        var viewModel = CreateSuccessUserLoginViewModel(loginViewModel.UserName);
 
-
+        return viewModel;
     }
 
-    public Task<SuccessUserLoginViewModel> RegisterAsync(RegisterViewModel registerViewModel)
+    public async Task<SuccessUserLoginViewModel> RegisterAsync(RegisterViewModel registerViewModel)
     {
-        throw new NotImplementedException();
+        if (registerViewModel.ConfirmPassword != registerViewModel.ConfirmPassword)
+        {
+            throw new RegisterException("Password and confirmPassword are not the same!");
+        }
+
+        var user = _mapper.Map<User>(registerViewModel);
+        var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+        if (!result.Succeeded)
+        {
+            throw new RegisterException("Register failure!");
+        }
+
+        var viewModel = CreateSuccessUserLoginViewModel(registerViewModel.UserName);
+
+        return viewModel;
+    }
+
+    private SuccessUserLoginViewModel CreateSuccessUserLoginViewModel(string userName)
+    {
+        var user = _userManager.Users.FirstOrDefault(x => x.UserName == userName);
+
+        var token = _tokenService.GenerateToken(user.Id);
+        var userViewModel = _mapper.Map<UserViewModel>(user);
+
+        return new SuccessUserLoginViewModel
+        {
+            Token = token,
+            User = userViewModel
+        };
     }
 }
