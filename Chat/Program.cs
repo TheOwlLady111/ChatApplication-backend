@@ -18,6 +18,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddAuth(settings);
 builder.Services.AddAutomapper();
+builder.Services.AddValidation();
+builder.Services.AddSignalR();
 builder.Services.AddServices();
 builder.Services.ConfigureDbContext(configuration);
 builder.Services.AddRepositories();
@@ -37,6 +39,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+//Cinfigure SignalR
 app.MapControllers();
 
 app.Run();

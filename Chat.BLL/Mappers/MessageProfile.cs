@@ -16,5 +16,7 @@ public class MessageProfile : Profile
             .ForMember(x => x.User, opt => opt.Ignore())
             .ForMember(x => x.Id, opt => opt.Ignore());
 
+        CreateMap<UpdateMessageViewModel, Message>()
+            .ForMember(x => x.UpdatedAtUtc, opt => opt.MapFrom(d => DateTime.UtcNow));
     }
 }
