@@ -1,4 +1,5 @@
 using Chat.Api.Extensions;
+using Chat.Api.Middlewares;
 using Chat.BLL.Extensions;
 using Chat.DAL.Extensions;
 
@@ -29,6 +30,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -39,7 +42,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-//Cinfigure SignalR
+//Configure SignalR
 app.MapControllers();
 
 app.Run();
