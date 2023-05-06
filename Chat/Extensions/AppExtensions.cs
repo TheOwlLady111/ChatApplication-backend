@@ -52,4 +52,20 @@ public static class AppExtensions
             .GetRequiredSection("AuthSettings")
             .Get<AuthSettings>();
     }
+
+    public static IServiceCollection AddCorsExtension(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("SignalRCorsPolicy",
+                builder => builder
+                    .WithOrigins(configuration["Client"])
+                    .WithMethods("POST")
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+        });
+
+        return services;
+    }
+
 }

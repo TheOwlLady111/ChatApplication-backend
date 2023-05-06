@@ -57,7 +57,7 @@ public class MessageService : IMessageService
         return messageModel;
     }
 
-    public async Task<List<MessageViewModel>> GetMessagesAsync()
+    public async Task<List<MessageViewModel>> GetMessagesAsync(int page, int rows)
     {
         var entities = await _messageRepository.GetAllAsync();
 

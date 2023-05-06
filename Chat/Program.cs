@@ -1,6 +1,7 @@
 using Chat.Api.Extensions;
 using Chat.Api.Middlewares;
 using Chat.BLL.Extensions;
+using Chat.BLL.Hubs;
 using Chat.DAL.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ var settings = builder.AddAuthSettings();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddAuth(settings);
+builder.Services.AddCorsExtension(configuration);
 builder.Services.AddAutomapper();
 builder.Services.AddValidation();
 builder.Services.AddSignalR();
@@ -44,5 +46,6 @@ app.UseAuthorization();
 
 //Configure SignalR
 app.MapControllers();
+app.MapHub<ChatHub>("/hub").RequireCors("SignalRCorsPolicy");
 
 app.Run();
