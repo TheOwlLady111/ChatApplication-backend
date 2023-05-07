@@ -28,6 +28,7 @@ builder.Services.ConfigureDbContext(configuration);
 builder.Services.AddRepositories();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
 
 var app = builder.Build();
 
@@ -46,6 +47,6 @@ app.UseAuthorization();
 
 //Configure SignalR
 app.MapControllers();
-app.MapHub<ChatHub>("/hub").RequireCors("SignalRCorsPolicy");
+app.MapHub<ChatHub>("/chat").RequireCors("SignalRCorsPolicy");
 
 app.Run();
