@@ -12,7 +12,7 @@ public static class AppExtensions
 {
     public static IServiceCollection AddAuth(this IServiceCollection services, AuthSettings authSettings)
     {
-        services.AddIdentity<User, IdentityRole>()
+        services.AddIdentity<User, IdentityRole<int>>()
             .AddEntityFrameworkStores<ChatAppDbContext>()
             .AddDefaultTokenProviders();
 
@@ -46,10 +46,26 @@ public static class AppExtensions
 
     public static AuthSettings AddAuthSettings(this WebApplicationBuilder builder)
     {
-        builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AppSettings"));
+        builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 
         return builder.Configuration
             .GetRequiredSection("AuthSettings")
             .Get<AuthSettings>();
     }
+
+    public static IServiceCollection AddCorsExtension(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("SignalRCorsPolicy",
+                builder => builder
+                    .WithOrigins(configuration["Client"])
+                    .WithMethods("POST")
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+        });
+
+        return services;
+    }
+
 }

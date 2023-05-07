@@ -57,13 +57,18 @@ public class MessageService : IMessageService
         return messageModel;
     }
 
-    public async Task<List<MessageViewModel>> GetMessagesAsync()
+    public async Task<PagedMessagesViewModel> GetMessagesAsync(int page, int rows)
     {
-        var entities = await _messageRepository.GetAllAsync();
+        var entities = await _messageRepository.GetPagedAsync(page, rows);
 
         var models = _mapper.Map<List<MessageViewModel>>(entities);
 
-        return models;
+        return new PagedMessagesViewModel()
+        {
+            Page = page,
+            Rows = rows,
+            Messages = models
+        };
     }
 
     public async Task UpdateMessageAsync(UpdateMessageViewModel updateMessage)
