@@ -42,7 +42,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
         DbSet.Remove(entity);
     }
 
-    public Task SaveChanges(CancellationToken token)
+    public Task SaveChanges()
     {
         var entries = _applicationContext.ChangeTracker.Entries<IBaseEntity>();
         foreach (var entityEntry in entries)
@@ -63,6 +63,6 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntit
             }
         }
 
-        return _applicationContext.SaveChangesAsync(token);
+        return _applicationContext.SaveChangesAsync();
     }
 }
