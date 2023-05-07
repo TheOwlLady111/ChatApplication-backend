@@ -29,6 +29,7 @@ builder.Services.AddRepositories();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
+builder.Services.AddAuthentication();
 
 var app = builder.Build();
 
@@ -43,6 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 //Configure SignalR

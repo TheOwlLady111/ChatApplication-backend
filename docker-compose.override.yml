@@ -9,8 +9,8 @@ services:
       - "80"
       - "443"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${USERPROFILE}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${USERPROFILE}/ASP.NET/Https:/root/.aspnet/https:ro
 
   postgresdb:
      ports:

@@ -1,12 +1,13 @@
 ﻿using Chat.BLL.Contracts;
-using Chat.BLL.Services;
 using Chat.BLL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chat.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MessagesController : ControllerBase
     {
         private readonly IMessageService _messageService;
