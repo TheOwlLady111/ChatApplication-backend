@@ -27,6 +27,7 @@ public static class BusinessLogicLayerExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IMessageService, MessageService>();
+        services.AddScoped<IUsersService, UsersService>();
 
         return services;
     }
