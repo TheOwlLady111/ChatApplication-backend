@@ -18,10 +18,10 @@ namespace Chat.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedMessagesViewModel>> GetPagedMessages([FromQuery] int page,
-            [FromQuery] int rows)
+        public async Task<ActionResult<PagedMessagesViewModel>> GetPagedMessages([FromQuery] int skipAmount,
+            [FromQuery] int takeAmount)
         {
-            var result = await _messageService.GetMessagesAsync(page, rows);
+            var result = await _messageService.GetMessagesAsync(skipAmount, takeAmount);
 
             return Ok(result);
         }

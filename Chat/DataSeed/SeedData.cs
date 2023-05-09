@@ -1,5 +1,4 @@
-﻿using Chat.BLL.ViewModels;
-using Chat.DAL;
+﻿using Chat.DAL;
 using Chat.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
