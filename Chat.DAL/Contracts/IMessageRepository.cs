@@ -4,5 +4,5 @@ namespace Chat.DAL.Contracts;
 
 public interface IMessageRepository : IBaseRepository<Message>
 {
-    Task<List<Message>> GetPagedAsync(int page, int rows);
+    Task<List<Message>> GetPagedAsync(int skipAmount, int takeAmount);
 }

@@ -57,16 +57,16 @@ public class MessageService : IMessageService
         return messageModel;
     }
 
-    public async Task<PagedMessagesViewModel> GetMessagesAsync(int page, int rows)
+    public async Task<PagedMessagesViewModel> GetMessagesAsync(int skipAmount, int takeAmount)
     {
-        var entities = await _messageRepository.GetPagedAsync(page, rows);
+        var entities = await _messageRepository.GetPagedAsync(skipAmount, takeAmount);
 
         var models = _mapper.Map<List<MessageViewModel>>(entities);
 
         return new PagedMessagesViewModel()
         {
-            Page = page,
-            Rows = rows,
+            SkipAmount = skipAmount,
+            TakeAmount = takeAmount,
             Messages = models
         };
     }

@@ -10,11 +10,11 @@ public class MessageRepository : BaseRepository<Message>, IMessageRepository
     {
     }
 
-    public async Task<List<Message>> GetPagedAsync(int page, int rows)
+    public async Task<List<Message>> GetPagedAsync(int skipAmount, int takeAmount)
     {
-        return await DbSet.OrderBy(x => x.Id)
-            .Skip(page * rows - 1)
-            .Take(rows)
+        return await DbSet.OrderByDescending(x => x.CreatedAtUtc)
+            .Skip(skipAmount)
+            .Take(takeAmount)
             .ToListAsync();
     }
 }

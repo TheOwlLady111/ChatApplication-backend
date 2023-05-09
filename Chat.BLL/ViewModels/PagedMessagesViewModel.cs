@@ -2,7 +2,7 @@
 
 public class PagedMessagesViewModel
 {
-    public int Page { get; set; }
-    public int Rows { get; set; }
+    public int SkipAmount { get; set; }
+    public int TakeAmount { get; set; }
     public List<MessageViewModel> Messages { get; set; }
 }
