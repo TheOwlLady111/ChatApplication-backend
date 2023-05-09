@@ -1,3 +1,4 @@
+using Chat.Api.DataSeed;
 using Chat.Api.Extensions;
 using Chat.Api.Middlewares;
 using Chat.BLL.Extensions;
@@ -36,6 +37,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+await app.SeedDataAsync();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
