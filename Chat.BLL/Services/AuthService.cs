@@ -40,14 +40,6 @@ public class AuthService : IAuthService
 
         var viewModel = CreateSuccessUserLoginViewModel(loginViewModel.UserName);
 
-        var create = new CreateMessageViewModel
-        {
-            UserId = viewModel.User.Id,
-            Text = "hhhhhhh"
-        };
-
-        var mes = await _messageService.CreateMessagesAsync(create);
-
         return viewModel;
     }
 

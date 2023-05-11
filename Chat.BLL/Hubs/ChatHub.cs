@@ -32,6 +32,6 @@ public class ChatHub : Hub
     {
         await _messageService.DeleteMessageAsync(id);
 
-        await Clients.All.SendAsync("DeleteMessage", $"Message with id {id} is deleted!");
+        await Clients.All.SendAsync("DeleteMessage", id);
     }
 }
