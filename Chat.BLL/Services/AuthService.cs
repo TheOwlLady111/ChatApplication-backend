@@ -12,13 +12,15 @@ public class AuthService : IAuthService
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly ITokenService _tokenService;
+    private readonly IMessageService _messageService;
     private readonly IMapper _mapper;
 
-    public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, IMapper mapper)
+    public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, IMessageService messageservice, IMapper mapper)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _tokenService = tokenService;
+        _messageService = messageservice;
         _mapper = mapper;
     }
 
@@ -37,6 +39,14 @@ public class AuthService : IAuthService
         }
 
         var viewModel = CreateSuccessUserLoginViewModel(loginViewModel.UserName);
+
+        var create = new CreateMessageViewModel
+        {
+            UserId = viewModel.User.Id,
+            Text = "hhhhhhh"
+        };
+
+        var mes = await _messageService.CreateMessagesAsync(create);
 
         return viewModel;
     }

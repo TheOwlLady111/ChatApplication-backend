@@ -25,13 +25,13 @@ public class ChatHub : Hub
         await _messageService.UpdateMessageAsync(message);
         var updatedMessage = _messageService.GetMessageAsync(message.Id);
 
-        await Clients.All.SendAsync("ReceiveMessage", updatedMessage);
+        await Clients.All.SendAsync("UpdateMessage", updatedMessage);
     }
 
     public async Task DeleteMessageAsync(int id)
     {
         await _messageService.DeleteMessageAsync(id);
 
-        await Clients.All.SendAsync("ReceiveMessage", $"Message with id {id} is deleted!");
+        await Clients.All.SendAsync("DeleteMessage", $"Message with id {id} is deleted!");
     }
 }
