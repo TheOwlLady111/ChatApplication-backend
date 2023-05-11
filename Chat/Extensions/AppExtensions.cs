@@ -68,8 +68,7 @@ public static class AppExtensions
 
             options.AddPolicy("SignalRCorsPolicy",
                 builder => builder
-                    .WithOrigins(configuration["Client"])
-                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowCredentials());
         });
