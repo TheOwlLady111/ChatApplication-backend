@@ -31,6 +31,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ExceptionHandlerMiddleware>();
 builder.Services.AddAuthentication();
+builder.Services.AddSwaggerServices();
 
 var app = builder.Build();
 

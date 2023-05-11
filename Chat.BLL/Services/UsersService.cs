@@ -4,6 +4,7 @@ using Chat.BLL.ViewModels;
 using Chat.DAL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Chat.BLL.Services;
 
@@ -22,7 +23,7 @@ public class UsersService : IUsersService
 
     public async Task<UserViewModel> GetCurrentUserAsync()
     {
-        var claimId = _contextAccessor.HttpContext.User.FindFirst("sub");
+        var claimId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         var userId = Convert.ToInt32(claimId);
 
         var user = await _userManager.FindByIdAsync(userId.ToString());

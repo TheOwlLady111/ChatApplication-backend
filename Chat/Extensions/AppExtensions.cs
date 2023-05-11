@@ -4,6 +4,8 @@ using Chat.DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace Chat.Api.Extensions;
@@ -75,4 +77,41 @@ public static class AppExtensions
         return services;
     }
 
+    public static IServiceCollection AddSwaggerServices(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(setup =>
+        {
+            setup.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Azure Starter - API",
+                Version = "v1",
+                Description = "Documentation of API"
+            });
+
+            setup.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "Please, insert JWT. For example: Bearer ABC123...",
+                Name = HeaderNames.Authorization,
+                Type = SecuritySchemeType.ApiKey
+            });
+
+            setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = JwtBearerDefaults.AuthenticationScheme
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
+
+        return services;
+    }
 }
