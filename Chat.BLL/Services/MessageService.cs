@@ -26,6 +26,7 @@ public class MessageService : IMessageService
         }
 
         var message = _mapper.Map<Message>(createMessageViewModel);
+        message.CreatedAtUtc = DateTime.UtcNow;
 
         var messageCreated = await _messageRepository.CreateAsync(message);
         await _messageRepository.SaveChanges();
