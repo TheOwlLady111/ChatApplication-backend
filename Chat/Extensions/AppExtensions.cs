@@ -66,8 +66,7 @@ public static class AppExtensions
                     .AllowAnyHeader()
                     .AllowCredentials());
 
-            options.AddPolicy("SignalRCorsPolicy",
-                builder => builder..SetIsOriginAllowed((host) => true)()
+            options.AddPolicy("SignalRCorsPolicy", builder => builder
                     .AllowAnyHeader()
                     .AllowCredentials());
         });
