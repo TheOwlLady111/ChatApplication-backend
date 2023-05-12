@@ -4,18 +4,21 @@ using Chat.BLL.Exceptions;
 using Chat.BLL.ViewModels;
 using Chat.DAL.Contracts;
 using Chat.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Chat.BLL.Services;
 
 public class MessageService : IMessageService
 {
     private readonly IMessageRepository _messageRepository;
+    private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;
 
-    public MessageService(IMessageRepository messageRepository, IMapper mapper)
+    public MessageService(IMessageRepository messageRepository, IMapper mapper, UserManager<User> userManager)
     {
         _messageRepository = messageRepository;
         _mapper = mapper;
+        _userManager = userManager;
     }
 
     public async Task<MessageViewModel> CreateMessagesAsync(CreateMessageViewModel createMessageViewModel)
@@ -31,6 +34,8 @@ public class MessageService : IMessageService
         var messageCreated = await _messageRepository.CreateAsync(message);
         await _messageRepository.SaveChanges();
 
+        var user = await _userManager.FindByIdAsync(createMessageViewModel.UserId.ToString());
+        messageCreated.User = user;
         var messageModel = _mapper.Map<MessageViewModel>(messageCreated);
 
         return messageModel;
