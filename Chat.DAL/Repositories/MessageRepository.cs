@@ -19,4 +19,10 @@ public class MessageRepository : BaseRepository<Message>, IMessageRepository
             .Reverse()
             .ToListAsync();
     }
+
+    public async override Task<Message> GetAsync(int id)
+    {
+        return await DbSet.Include(x => x.User)
+            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }
