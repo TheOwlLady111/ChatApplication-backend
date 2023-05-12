@@ -23,7 +23,7 @@ public class ChatHub : Hub
     public async Task UpdateMessageAsync(UpdateMessageViewModel message)
     {
         await _messageService.UpdateMessageAsync(message);
-        var updatedMessage = _messageService.GetMessageAsync(message.Id);
+        var updatedMessage = await _messageService.GetMessageAsync(message.Id);
 
         await Clients.All.SendAsync("UpdateMessage", updatedMessage);
     }
