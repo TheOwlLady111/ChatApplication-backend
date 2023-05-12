@@ -16,7 +16,7 @@ public class MessageRepository : BaseRepository<Message>, IMessageRepository
             .OrderByDescending(x => x.CreatedAtUtc)
             .Skip(skipAmount)
             .Take(takeAmount)
-            //.Reverse()
+            .Reverse()
             .ToListAsync();
     }
 }
